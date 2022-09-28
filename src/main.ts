@@ -1,6 +1,7 @@
 import {createApp} from 'vue';
 import './style.css';
 import "element-plus/es/components/message/style/css";
+import "element-plus/es/components/message-box/style/css";
 import App from './app.vue';
 import {createRouter, createWebHistory} from "vue-router";
 
@@ -19,6 +20,16 @@ const routes = [
         path: "/artwork/edit/:id",
         name: "artwork-edit",
         component: () => import("./pages/artwork-edit.vue"),
+    },
+    {
+        path: "/page/edit/:id",
+        name: "page-edit",
+        component: () => import("./pages/page-edit.vue"),
+    },
+    {
+        path: "/page/callout/:id",
+        name: "page-callout",
+        component: () => import("./pages/page-callout.vue"),
     },
     {
         path: "/:pathMatch(.*)*",

@@ -12,7 +12,7 @@ import {
   do_page_get_request,
   do_page_del_request,
 } from "../api/page";
-import {ElMessage} from "element-plus";
+import {Action, ElMessage, ElMessageBox} from "element-plus";
 import {useRoute, useRouter} from "vue-router";
 
 const route = useRoute();
@@ -66,6 +66,7 @@ const btn_add_page_cb = () => {
       .then(resp => {
         pages_table_loading.value = false;
         page_table_data.push(resp.data)
+        ElMessage.success("添加作品成功！")
       })
       .catch(err => {
         pages_table_loading.value = false;
@@ -73,16 +74,30 @@ const btn_add_page_cb = () => {
       })
 }
 
+const btn_mod_page_cb = (id: number) => router.push("/page/edit/" + id.toString());
+
 const btn_del_page_cb = (id: number) => {
-  do_page_del_request({id: id})
-      .then(() => {
-        for (let i in page_table_data)
-          if (page_table_data[i].id == id)
-            page_table_data.splice(Number(i), 1)
-      })
-      .catch(err =>{
-        ElMessage.error(err.response.data.msg);
-      })
+  ElMessageBox.confirm("确认要删除吗？", "警告", {
+    cancelButtonText: "取消",
+    confirmButtonText: "确认",
+    type: "warning",
+    callback: ((action: Action) => {
+      if (action == "confirm") {
+        do_page_del_request({id: id})
+            .then(() => {
+              for (let i in page_table_data) {
+                if (page_table_data[i].id == id) {
+                  page_table_data.splice(Number(i), 1)
+                }
+              }
+              ElMessage.success("删除作品成功！")
+            })
+            .catch(err => {
+              ElMessage.error(err.response.data.msg);
+            })
+      }
+    })
+  })
 }
 
 onMounted(() => {
@@ -243,7 +258,7 @@ onMounted(() => {
         </el-table-column>
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button size="small">编辑</el-button>
+            <el-button size="small" @click="btn_mod_page_cb(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="small" @click="btn_del_page_cb(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
