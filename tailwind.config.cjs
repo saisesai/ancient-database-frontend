@@ -8,7 +8,7 @@ module.exports = {
         extend: {},
         fontFamily: {
             "msz": ["Ma Shan Zheng", "sans-serif"]
-        }
+        },
     },
     plugins: [],
 }
