@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ArtworkDisplay: typeof import('./src/components/artwork-display.vue')['default']
+    ArtworkDisplayCard: typeof import('./src/components/artwork-display-card.vue')['default']
     Callout: typeof import('./src/components/callout.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
