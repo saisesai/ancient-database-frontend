@@ -17,6 +17,11 @@ const routes = [
         component: () => import("./pages/artwork-new.vue"),
     },
     {
+        path: "/artwork/search",
+        name: "artwork-search",
+        component: () => import("./pages/artwork-search.vue"),
+    },
+    {
         path: "/artwork/edit/:id",
         name: "artwork-edit",
         component: () => import("./pages/artwork-edit.vue"),

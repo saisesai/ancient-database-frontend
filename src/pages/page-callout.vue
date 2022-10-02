@@ -11,6 +11,7 @@ const page_loading = ref<boolean>(false);
 const page_info = reactive<api_page_output>({
   id: 0, created_at: "", updated_at: "", artwork_id: 0, image_url: "", chars: []
 })
+const callout_ref = ref();
 
 const setup_page_info = () => {
   page_loading.value = true;
@@ -37,13 +38,19 @@ const setup_page_info = () => {
       })
 }
 
+const callout_set_page_now = (pId: number) => {
+  callout_ref.value.set_page_now(pId);
+}
+
 onMounted(() => {
   page_info.id = parseInt(route.params["id"] as string);
+  setup_page_info();
+  callout_set_page_now(page_info.id);
 })
 </script>
 
 <template>
-  <div class="bg-gray-200 h-screen" v-loading="page_loading">
-    <callout :edit_mode="true" :page_id="page_info.id"/>
+  <div class="h-screen" v-loading="page_loading">
+    <callout ref="callout_ref" :edit_mode="true"/>
   </div>
 </template>

@@ -30,9 +30,13 @@ const btn_save_page_info_cb = () => {
       })
 }
 
-const btn_enter_char_callout_page_cb = () => router.push("/page/callout/"+ page_info.id.toString());
+const btn_enter_char_callout_page_cb = () => {
+  router.push("/page/callout/" + page_info.id.toString())
+};
 
-const btn_back_to_artwork_edit_cb = () => router.push("/artwork/edit/" + artwork_id.value.toString());
+const btn_back_to_artwork_edit_cb = () => {
+  router.push("/artwork/edit/" + artwork_id.value.toString())
+};
 
 onMounted(() => {
   page_info.id = parseInt(route.params["id"] as string);
